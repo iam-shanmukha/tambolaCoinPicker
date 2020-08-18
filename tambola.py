@@ -9,9 +9,9 @@ import random
 coins = random.sample(range(1,91), 90)
 #print(coins)
 picked_coins=[]
+current_coin=0
 #print(picked_coins)
 class Housie(FloatLayout):
-
 	def __init__(self,**kwargs):
 		super(Housie,self).__init__(**kwargs)
 		self.title = Label(text="Housie Coin Picker",font_size = 50,size_hint=(1, .55),pos_hint={'x':0, 'y':.45})
@@ -24,16 +24,21 @@ class Housie(FloatLayout):
 		self.add_widget(self.help_button)
 		self.add_widget(self.userinterface())
 	def userinterface(self):
-		layout = GridLayout(cols = 10,size_hint=(.50, .50))
+		self.layout = GridLayout(cols = 10,size_hint=(.50, .50))
 		for i in range(1,91):
-			layout.add_widget(Button(background_color=(1,0,0,1),text =str(i)))
-		return layout
+			self.layout.add_widget(Button(background_color=(1,0,0,1),text =str(i)))
+		return self.layout
 	def update(self,event):
 		for coin in coins:
 			if coin not in picked_coins:
-				global_coin = coin
+				current_coin=coin
 				picked_coins.append(coin)
 				self.main_label.text = str(coin)
+				for i in self.layout.children:
+					if i.text == str(coin):
+						print(i,i.text)
+						i = Button(background_color=(0,0,0,0),text =i.text)
+						print(i,i.text)
 				break
 		self.picked_ones.text = "Picked coins = {}".format(" ".join(str(sorted(picked_coins))))
 class app1(App):
