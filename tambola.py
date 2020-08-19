@@ -5,6 +5,7 @@ App: TambolCoinPicker
 Author: Shanmukha Vishnu
 github: @iam-shanmukha
 twitter: @iam_shanmukha
+website: www.shanmukhavishnu.in
 
 '''
 from kivy.app import App
@@ -15,19 +16,26 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.graphics import Color
 from kivy.clock import Clock
 from kivy.uix.slider import Slider
+from kivy.properties  import NumericProperty
 import random
 coins = random.sample(range(1,91), 90)
 picked_coins=[0]
 class Housie(FloatLayout):
 	def __init__(self,**kwargs):
 		super(Housie,self).__init__(**kwargs)
+
+		#Declaration
 		self.title = Label(text="Housie Coin Picker",font_size = 50,size_hint=(1, .55),pos_hint={'x':0, 'y':.60})
 		#Label to show Picked Number
 		self.main_label = Label(text = "",font_size=90, size_hint=(1, .60),pos_hint={'x':0, 'y':.40})
 		#Label to show previous number
 		self.prev_label = Label(text = "Previous Number",font_size=30, size_hint=(1, .60),pos_hint={'x':0, 'y':.25})
-		#self.picked_ones = Label(text = "picked_coins", size_hint=(1, .40),pos_hint={'x':0, 'y':.40})
 		self.help_button = Button(text = "PICK NUMBER", size_hint=(.3, .1),pos_hint={'x':.65, 'y':.1},on_press = self.update)
+		self.interval_time = Slider(min = 0, max = 5,size_hint=(0.2, 0.2),pos_hint={'top': 0.8})
+		self.interval_value = Label(text ='0',size_hint=(0.4, 0.2),pos_hint={'top': 0.8})
+
+
+		#Widget Creation
 		self.add_widget(self.title)
 		self.add_widget(self.main_label)
 		self.add_widget(self.prev_label)
@@ -36,9 +44,17 @@ class Housie(FloatLayout):
 		self.add_widget(self.help_button)
 		self.add_widget(self.userinterface())
 
-		#Enabel below Picks coin based on Time automatically
-		#Clock.schedule_interval(self.update, 2) 
+		#Scheduling
+		self.add_widget(Label(text ='Interval in seconds',size_hint=(0.2, 0.1),pos_hint={'top': 0.8}))
+		self.add_widget(self.interval_time)
+		#self.add_widget(Label(text ='Slider Value',size_hint=(1, .55),pos_hint={'top': 0.9})) 
+		self.add_widget(self.interval_value)
+		self.interval_time.bind(value = self.on_value) 
 
+		#Enabling below lines Picks coin based on Time automatically
+		#Clock.schedule_interval(self.update, 2) 
+	def on_value(self, instance, brightness):
+		self.interval_value.text = "% d"% brightness
 	def userinterface(self):
 		self.layout = GridLayout(cols = 10,size_hint=(.50, .50))
 		for i in range(1,91):
@@ -56,9 +72,7 @@ class Housie(FloatLayout):
 						#change the color of picked coin
 						i.background_normal=''
 						i.background_color=(0,0,1,1)
-						#print(i,i.text)
 				break
-		#self.picked_ones.text = "Picked coins = {}".format(" ".join(str(sorted(picked_coins))))
 class app1(App):
 	def build(self):
 		return Housie()
