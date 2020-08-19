@@ -18,6 +18,8 @@ from kivy.clock import Clock
 from kivy.uix.slider import Slider
 from kivy.properties  import NumericProperty
 import random
+from plyer import tts
+
 coins = random.sample(range(1,91), 90)
 picked_coins=[0]
 class Housie(FloatLayout):
@@ -53,6 +55,7 @@ class Housie(FloatLayout):
 
 		#Enabling below lines Picks coin based on Time automatically
 		#Clock.schedule_interval(self.update, 2) 
+	#Scheduling...		
 	def on_value(self, instance, slider_val):
 		self.interval_value.text = "% d"% slider_val
 		print(self.interval_value.text)
@@ -70,6 +73,9 @@ class Housie(FloatLayout):
 		if int(self.interval_value.text) ==4:
 			Clock.unschedule(self.update)
 			Clock.schedule_interval(self.update, 4)
+		if int(self.interval_value.text) ==5:
+			Clock.unschedule(self.update)
+			Clock.schedule_interval(self.update, 5)
 
 	def userinterface(self):
 		self.layout = GridLayout(cols = 10,size_hint=(.50, .50))
@@ -82,6 +88,7 @@ class Housie(FloatLayout):
 				self.prev_label.text = str(f"Previous Number: {picked_coins[-1]}")
 				picked_coins.append(coin)
 				self.main_label.text = str(coin)
+				tts.speak(str(coin))			
 				for i in self.layout.children:
 					if i.text == str(coin):
 						print(i,i.text)
