@@ -37,7 +37,8 @@ class Housie(FloatLayout):
 				for i in self.layout.children:
 					if i.text == str(coin):
 						print(i,i.text)
-						i = Button(background_color=(0,0,0,0),text =i.text)
+						i.background_normal=''
+						i.background_color=(0,0,1,1)
 						print(i,i.text)
 				break
 		self.picked_ones.text = "Picked coins = {}".format(" ".join(str(sorted(picked_coins))))
