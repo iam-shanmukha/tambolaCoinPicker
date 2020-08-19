@@ -53,8 +53,24 @@ class Housie(FloatLayout):
 
 		#Enabling below lines Picks coin based on Time automatically
 		#Clock.schedule_interval(self.update, 2) 
-	def on_value(self, instance, brightness):
-		self.interval_value.text = "% d"% brightness
+	def on_value(self, instance, slider_val):
+		self.interval_value.text = "% d"% slider_val
+		print(self.interval_value.text)
+		if int(self.interval_value.text) ==0:
+			Clock.unschedule(self.update)
+		if int(self.interval_value.text) ==1:
+			Clock.unschedule(self.update)
+			Clock.schedule_interval(self.update, 1)
+		if int(self.interval_value.text) ==2:
+			Clock.unschedule(self.update)
+			Clock.schedule_interval(self.update, 2)
+		if int(self.interval_value.text) ==3:
+			Clock.unschedule(self.update)
+			Clock.schedule_interval(self.update, 3)
+		if int(self.interval_value.text) ==4:
+			Clock.unschedule(self.update)
+			Clock.schedule_interval(self.update, 4)
+
 	def userinterface(self):
 		self.layout = GridLayout(cols = 10,size_hint=(.50, .50))
 		for i in range(1,91):
