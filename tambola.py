@@ -5,6 +5,7 @@ from kivy.uix.label import Label
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.gridlayout import GridLayout 
 from kivy.graphics import Color
+from kivy.clock import Clock
 import random
 coins = random.sample(range(1,91), 90)
 picked_coins=[0]
@@ -22,6 +23,8 @@ class Housie(FloatLayout):
 		#self.add_widget(self.picked_ones)
 		self.add_widget(self.help_button)
 		self.add_widget(self.userinterface())
+		Clock.schedule_interval(self.update, 2)
+
 	def userinterface(self):
 		self.layout = GridLayout(cols = 10,size_hint=(.50, .50))
 		for i in range(1,91):
