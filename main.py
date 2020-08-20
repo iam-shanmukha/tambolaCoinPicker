@@ -27,17 +27,15 @@ class Housie(FloatLayout):
 		super(Housie,self).__init__(**kwargs)
 
 		#Declaration
-		self.title = Label(text="Housie Coin Picker",font_size = 50,size_hint=(1, .55),pos_hint={'x':0, 'y':.60})
+		self.title = Label(text="Housie Coin Picker",font_size = 50,size_hint=(1, 0.55),pos_hint={'x':0, 'y':.60})
 		#Label to show Picked Number
 		self.main_label = Label(text = "",font_size=150, size_hint=(1, .70),pos_hint={'x':0, 'y':.35})
 		#Label to show previous number
-		self.prev_label = Label(text = "Previous Number",font_size=30, size_hint=(1, .60),pos_hint={'x':0, 'y':.25})
-		self.click_button = Button(text = "PICK NUMBER", size_hint=(0.2, 0.1),pos_hint={'x':.75, 'y':0.65},on_press = self.update)
-		self.reset_button = Button(text = "RESET", size_hint=(0.2, 0.1),pos_hint={'x':.75, 'y':0.55})
-		self.interval_time = Slider(min = 0, max = 5,size_hint=(0.2, 0.2),pos_hint={'top': 0.8})
-		self.interval_value = Label(text ='0',size_hint=(0.4, 0.2),pos_hint={'top': 0.8})
-
-
+		self.prev_label = Label(text = "Previous Number",font_size=80, size_hint=(1, .60),pos_hint={'x':0, 'y':.25})
+		self.click_button = Button(text = "PICK NUMBER", font_size=30,size_hint=(0.2, 0.1),pos_hint={'x':.75, 'y':0.65},on_press = self.update)
+		self.reset_button = Button(text = "RESET",background_normal = 'normal.png',background_down ='down.png',size_hint=(0.1, 0.1),pos_hint={'x':0.8, 'y':0.82})
+		self.interval_time = Slider(min = 0, max = 5,size_hint=(0.35, 0.2),pos_hint={'top': 0.8})
+		self.interval_value = Label(text ='0',size_hint=(0.5, 0.1),pos_hint={'top': 0.8})
 		#Widget Creation
 		self.add_widget(self.title)
 		self.add_widget(self.main_label)
@@ -49,7 +47,7 @@ class Housie(FloatLayout):
 		self.add_widget(self.userinterface())
 
 		#Scheduling
-		self.add_widget(Label(text ='Interval in seconds',size_hint=(0.2, 0.1),pos_hint={'top': 0.8}))
+		self.add_widget(Label(text ='Time:',size_hint=(0.25, 0.1),pos_hint={'top': 0.8}))
 		self.add_widget(self.interval_time)
 		#self.add_widget(Label(text ='Slider Value',size_hint=(1, .55),pos_hint={'top': 0.9})) 
 		self.add_widget(self.interval_value)
