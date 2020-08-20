@@ -16,8 +16,8 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.graphics import Color
 from kivy.clock import Clock
 from kivy.uix.slider import Slider
-from kivy.properties  import NumericProperty
-import random
+from kivy.properties import NumericProperty
+import random,os,sys
 from plyer import tts
 
 coins = random.sample(range(1,91), 90)
@@ -29,10 +29,11 @@ class Housie(FloatLayout):
 		#Declaration
 		self.title = Label(text="Housie Coin Picker",font_size = 50,size_hint=(1, .55),pos_hint={'x':0, 'y':.60})
 		#Label to show Picked Number
-		self.main_label = Label(text = "",font_size=90, size_hint=(1, .60),pos_hint={'x':0, 'y':.40})
+		self.main_label = Label(text = "",font_size=150, size_hint=(1, .70),pos_hint={'x':0, 'y':.35})
 		#Label to show previous number
 		self.prev_label = Label(text = "Previous Number",font_size=30, size_hint=(1, .60),pos_hint={'x':0, 'y':.25})
-		self.help_button = Button(text = "PICK NUMBER", size_hint=(.3, .1),pos_hint={'x':.65, 'y':.1},on_press = self.update)
+		self.click_button = Button(text = "PICK NUMBER", size_hint=(0.2, 0.1),pos_hint={'x':.75, 'y':0.65},on_press = self.update)
+		self.reset_button = Button(text = "RESET", size_hint=(0.2, 0.1),pos_hint={'x':.75, 'y':0.55})
 		self.interval_time = Slider(min = 0, max = 5,size_hint=(0.2, 0.2),pos_hint={'top': 0.8})
 		self.interval_value = Label(text ='0',size_hint=(0.4, 0.2),pos_hint={'top': 0.8})
 
@@ -43,7 +44,8 @@ class Housie(FloatLayout):
 		self.add_widget(self.prev_label)
 		#self.add_widget(self.picked_ones)
 
-		self.add_widget(self.help_button)
+		self.add_widget(self.click_button)
+		self.add_widget(self.reset_button)
 		self.add_widget(self.userinterface())
 
 		#Scheduling
@@ -58,27 +60,28 @@ class Housie(FloatLayout):
 	#Scheduling...		
 	def on_value(self, instance, slider_val):
 		self.interval_value.text = "% d"% slider_val
+		siv = int(self.interval_value.text)
 		print(self.interval_value.text)
-		if int(self.interval_value.text) ==0:
+		if int(self.interval_value.text) == 0:
 			Clock.unschedule(self.update)
-		if int(self.interval_value.text) ==1:
+		if siv == 1:
 			Clock.unschedule(self.update)
 			Clock.schedule_interval(self.update, 1)
-		if int(self.interval_value.text) ==2:
+		if siv ==2:
 			Clock.unschedule(self.update)
 			Clock.schedule_interval(self.update, 2)
-		if int(self.interval_value.text) ==3:
+		if siv ==3:
 			Clock.unschedule(self.update)
 			Clock.schedule_interval(self.update, 3)
-		if int(self.interval_value.text) ==4:
+		if siv ==4:
 			Clock.unschedule(self.update)
 			Clock.schedule_interval(self.update, 4)
-		if int(self.interval_value.text) ==5:
+		if siv ==5:
 			Clock.unschedule(self.update)
 			Clock.schedule_interval(self.update, 5)
 
 	def userinterface(self):
-		self.layout = GridLayout(cols = 10,size_hint=(.50, .50))
+		self.layout = GridLayout(cols = 10,size_hint=(1, 0.5))
 		for i in range(1,91):
 			self.layout.add_widget(Button(background_color=(1,0,0,1),text =str(i)))
 		return self.layout
@@ -96,6 +99,7 @@ class Housie(FloatLayout):
 						i.background_normal=''
 						i.background_color=(0,0,1,1)
 				break
+
 class app1(App):
 	def build(self):
 		return Housie()
