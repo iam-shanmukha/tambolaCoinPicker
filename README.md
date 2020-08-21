@@ -1,5 +1,5 @@
 # tambolaCoinPicker
-Tambola Coin Picker written in Python using kivy </br>
+Tambola Coin Picker written in Python using kivy with Speech Output</br>
 # Usage
 `$ git clone https://github.com/iam-shanmukha/tambolaCoinPicker.git`</br>
 `$ cd tambolaCoinPicker`</br>
