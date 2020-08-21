@@ -6,7 +6,7 @@ Tambola Coin Picker written in Python using kivy </br>
 `$ pip install -r requirements.txt`</br>
 `$ python3 main.py`</br>
 # Download
-Downlad Apk from /bin folder
+Downlad Apk from /bin folder or [click here!](https://github.com/iam-shanmukha/tambolaCoinPicker/tree/master/bin)
 # Known Issues
 Reset button not yet Implemented. Contributions are Welcome
 # Screenshots
