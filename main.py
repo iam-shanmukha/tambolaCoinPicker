@@ -93,7 +93,7 @@ class Housie(FloatLayout):
 				self.prev_label.text = str("Previous Number: {}".format(self.picked_coins[-1]))
 				self.picked_coins.append(coin)
 				self.main_label.text = str(coin)
-				#tts.speak(str(coin))			
+				tts.speak(str(coin))			
 				for i in self.layout.children:
 					if i.text == str(coin):
 						print(i,i.text)
