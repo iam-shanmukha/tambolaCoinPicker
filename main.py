@@ -20,11 +20,12 @@ from kivy.properties import NumericProperty
 import random,os,sys
 from plyer import tts
 
-coins = random.sample(range(1,91), 90)
-picked_coins=[0]
+
 class Housie(FloatLayout):
 	def __init__(self,**kwargs):
 		super(Housie,self).__init__(**kwargs)
+		self.coins = random.sample(range(1,91), 90)
+		self.picked_coins=[0]
 
 		#Declaration
 		self.title = Label(text="Housie Coin Picker",font_size = 50,size_hint=(1, 0.55),pos_hint={'x':0, 'y':.60})
@@ -33,7 +34,10 @@ class Housie(FloatLayout):
 		#Label to show previous number
 		self.prev_label = Label(text = "Previous Number",font_size=80, size_hint=(1, .60),pos_hint={'x':0, 'y':.25})
 		self.click_button = Button(text = "PICK NUMBER", font_size=30,size_hint=(0.2, 0.1),pos_hint={'x':.75, 'y':0.65},on_press = self.update)
-		self.reset_button = Button(text = "RESET",background_normal = 'normal.png',background_down ='down.png',size_hint=(0.1, 0.1),pos_hint={'x':0.8, 'y':0.82})
+
+		app = App.get_running_app()
+		self.reset_button = Button(text = "RESET",background_normal = 'normal.png',background_down ='down.png',size_hint=(0.1, 0.1),pos_hint={'x':0.8, 'y':0.82},on_press=app.reset)
+
 		self.interval_time = Slider(min = 0, max = 5,size_hint=(0.35, 0.2),pos_hint={'top': 0.8})
 		self.interval_value = Label(text ='0',size_hint=(0.5, 0.1),pos_hint={'top': 0.8})
 		#Widget Creation
@@ -84,12 +88,12 @@ class Housie(FloatLayout):
 			self.layout.add_widget(Button(background_color=(1,0,0,1),text =str(i)))
 		return self.layout
 	def update(self,event):
-		for coin in coins:
-			if coin not in picked_coins:
-				self.prev_label.text = str("Previous Number: {}".format(picked_coins[-1]))
-				picked_coins.append(coin)
+		for coin in self.coins:
+			if coin not in self.picked_coins:
+				self.prev_label.text = str("Previous Number: {}".format(self.picked_coins[-1]))
+				self.picked_coins.append(coin)
 				self.main_label.text = str(coin)
-				tts.speak(str(coin))			
+				#tts.speak(str(coin))			
 				for i in self.layout.children:
 					if i.text == str(coin):
 						print(i,i.text)
@@ -100,6 +104,12 @@ class Housie(FloatLayout):
 
 class app1(App):
 	def build(self):
-		return Housie()
+		fl = FloatLayout()
+		fl.add_widget(Housie())
+		return fl
+	def reset(self, *largs):
+		self.root.clear_widgets()# Discard previous Housie instance
+		self.root.add_widget(Housie())# Replace it with a new instance
+
 if __name__=="__main__":
      app1().run()
