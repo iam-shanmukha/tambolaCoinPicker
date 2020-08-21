@@ -7,7 +7,7 @@ title = Tambola Coin Picker
 package.name = tambola.coin.picker
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.test
+package.domain =
 
 # (str) Source code where the main.py live
 source.dir = .
@@ -28,7 +28,7 @@ source.include_exts = py,png,jpg,kv,atlas
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-version = 0.2
+version = 1.0
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
